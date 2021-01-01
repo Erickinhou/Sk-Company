@@ -1,0 +1,83 @@
+{
+  "instanceId":"03k6j6tmiqjcg82w",
+  "api":{
+    "baseUrl":"/apps/order-request/03k6j6tmiqjcg82w/api/",
+    "apiKey":"08n3uhov4prebe5k",
+    "routes":{
+      "session_keepalive":{
+        "url":"/session/keepalive",
+        "methods":[
+          "POST"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "get_order":{
+        "url":"/order",
+        "methods":[
+          "GET"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "post_order_address":{
+        "url":"/order/{type}",
+        "methods":[
+          "POST"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "get_order_pdf":{
+        "url":"/orderPdf",
+        "methods":[
+          "GET"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "get_order_payments":{
+        "url":"/orderPayments",
+        "methods":[
+          "GET"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "post_order_payment":{
+        "url":"/orderPayment",
+        "methods":[
+          "POST"
+        ],
+        "defaults":[
+
+        ]
+      },
+      "post_sync_payment":{
+        "url":"/syncPayment",
+        "methods":[
+          "POST"
+        ],
+        "defaults":[
+
+        ]
+      }
+    }
+  },
+  "initialData":{
+    "company_name":"Candy Now",
+    "company_image_url":"https://api-candynow.storekeeper.cloud/download/public/candynow/FileModule/candynow/main/candynow_logo_str.png?img_w=270&img_h=161&",
+    "company_country_iso2":"NL"
+  },
+  "backend":{
+    "resourceUrl":"https://api-candynow.storekeepercloud.com/",
+    "buildNumber":"9353-20200707",
+    "buildDate":"20200707_162413",
+    "buildDistribution":"storekeeper-stable"
+  }
+}

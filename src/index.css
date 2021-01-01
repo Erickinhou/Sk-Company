@@ -1,0 +1,47 @@
+.modal-header-text {
+    position: relative;
+}
+
+.modal-header-text button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.App > .spinner-grow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.flex-middle {
+    display: flex;
+    align-items: center;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.company-logo {
+    max-width: 250px!important;
+}
+
+.header-background {
+    background-color: #e9ecef;
+}
+
+.pdf-viewer {
+    height: 1200px;
+}
+
+.payment-method-images {
+    width: 100px;
+    height: 100px;
+}
+
+.d-flow-root {
+    /* https://css-tricks.com/display-flow-root/ */
+    display: flow-root;
+}
