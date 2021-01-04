@@ -25,6 +25,10 @@ class OrderCompleteButton extends Component {
     const shippingAddress = getAddressFromOrder(order, false);
     const errors = [];
 
+    console.log('billingAddress --> ', billingAddress);
+    console.log('shippingAddress --> ', shippingAddress);
+    
+
     if (!hasRequiredFields(shippingAddress)) {
       errors.push(intl.formatMessage({ id: 'Error.InvalidShippingAddress', defaultMessage: 'Invalid shipping address' }));
     }

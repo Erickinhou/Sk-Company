@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
@@ -18,17 +18,6 @@ import SetChangeAddressText from '../spans/SetChangeAddressText';
 import appConfig from '../../utility/appConfig';
 import { getIntl } from '../../utility/translations';
 
-/**
- * This styling is used by the modal. and is required to be done this way.
- * Example: https://github.com/reactjs/react-modal#examples
- */
-const customStyles = {
-  content: {
-    width: 'initial',
-    margin: '0 auto',
-    bottom: 'initial',
-  },
-};
 
 const OrderAddressEditModal = (props) => {
   const intl = getIntl();
@@ -36,8 +25,9 @@ const OrderAddressEditModal = (props) => {
   const [error, setError] = useState(false);
 
   const {
-    isBilling, modalShown, closeModal, isLoading, address, order, dispatch,
+    isBilling, isLoading, address, order, dispatch, readOnly
   } = props;
+  useEffect(()=>console.log(readOnly),readOnly );
 
   // Set default country_iso2
   if (!address.country_iso2) {
@@ -73,7 +63,6 @@ const OrderAddressEditModal = (props) => {
       await updateAddress(newAddress);
       // Resets internal form cache
       reset(updatedAddress);
-      await closeModal();
     } catch (err) {
       setError(err.message);
     }
@@ -95,12 +84,9 @@ const OrderAddressEditModal = (props) => {
   );
 
   return (
-    <Modal isOpen={modalShown} contentLabel="Edit Order Address Modal" style={customStyles}>
+    <>
       <h2 className="modal-header-text">
-        <SetChangeAddressText isBilling={isBilling} />
-        <Button onClick={() => closeModal()} className="float-right">
-          <FontAwesomeIcon icon={faTimes} />
-        </Button>
+        Jouw gegevens
       </h2>
 
       {error ? showError() : ''}
@@ -112,6 +98,7 @@ const OrderAddressEditModal = (props) => {
             <FormattedMessage id="Address.PostalCode" defaultMessage="Postal code" />
           </Form.Label>
           <Form.Control
+            disabled = {readOnly}
             type="text"
             placeholder={intl.formatMessage({ id: 'Address.PostalCode', defaultMessage: 'Postal code' })}
             name="zipcode"
@@ -136,6 +123,7 @@ const OrderAddressEditModal = (props) => {
           <Row>
             <Col>
               <Form.Control
+                disabled = {readOnly}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.HouseNumber', defaultMessage: 'House number' })}
                 name="streetnumber"
@@ -151,6 +139,7 @@ const OrderAddressEditModal = (props) => {
             </Col>
             <Col>
               <Form.Control
+                disabled = {readOnly}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.Street', defaultMessage: 'Street' })}
                 name="street"
@@ -166,6 +155,7 @@ const OrderAddressEditModal = (props) => {
             </Col>
             <Col>
               <Form.Control
+                disabled = {readOnly}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.FlatNumber', defaultMessage: 'Flat number' })}
                 name="flatnumber"
@@ -180,6 +170,7 @@ const OrderAddressEditModal = (props) => {
             <FormattedMessage id="Address.City" defaultMessage="City" />
           </Form.Label>
           <Form.Control
+            disabled = {readOnly}
             type="text"
             placeholder={intl.formatMessage({ id: 'Address.City', defaultMessage: 'City' })}
             name="city"
@@ -199,6 +190,7 @@ const OrderAddressEditModal = (props) => {
             <FormattedMessage id="Address.Country" defaultMessage="Country" />
           </Form.Label>
           <Form.Control
+            disabled = {readOnly}
             as="select"
             name="country_iso2"
             ref={register()}
@@ -206,25 +198,22 @@ const OrderAddressEditModal = (props) => {
             {countryOptions}
           </Form.Control>
         </Form.Group>
-
-        <Button type="submit" variant="success">
+        
+        
+        <Button disabled = {readOnly} type="submit" variant="success">
           {isLoading
             ? <Spinner animation="grow" size="sm" />
             : <FormattedMessage id="OrderAddressEditModal.Update" defaultMessage="Update address" />}
         </Button>
         &nbsp;
-        <Button type="button" onClick={() => closeModal()} variant="primary">
-          <FormattedMessage id="OrderAddressEditModal.Cancel" defaultMessage="Cancel" />
-        </Button>
       </Form>
-    </Modal>
+    </>
   );
 };
 
 OrderAddressEditModal.propTypes = {
-  modalShown: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired,
   isBilling: PropTypes.bool,
+  readOnly: PropTypes.bool,
   address: PropTypes.object.isRequired,
 };
 
