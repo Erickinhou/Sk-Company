@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { Container, Jumbotron } from 'react-bootstrap'
-import OrderAddressRow from './OrderAddressRow'
+import {Jumbotron } from 'react-bootstrap'
+import {Container} from './Create.style'
+import OrderEditAddress from './OrderEditAddress'
 import OrderDetails from './OrderDetails'
 import OrderSummary from './OrderSummary'
 import OrderPayments from './OrderPayments'
@@ -14,7 +15,6 @@ import { connect } from 'react-redux'
 class Create extends Component {
   state = {
     isBilling: true,
-    readOnly: true,
     name: ''
   }
   
@@ -26,9 +26,6 @@ class Create extends Component {
     this.setState({name})
   }
 
-  useDifferentAddress(){
-    this.setState({readOnly: !this.state.readOnly })
-  }
 
   componentWillMount() {
     const { order, dispatch } = this.props;
@@ -47,22 +44,19 @@ class Create extends Component {
   
   render () {
     const { order } = this.props
-    const { isBilling, name, readOnly } = this.state;
+    const { isBilling, name } = this.state;
     console.log('order',order);
     console.log('isBilling', isBilling);
     return (
       <div>
-        <Container className='pt-4'>
-          {name ? (<h1> {`Hey ${name}`} </h1>) : (<Loader/>)}
-          <p>
+        <Container>
+          {name ? (<h1> {`Hey ${name}`}, </h1>) : (<Loader/>)}
+          <h2>
           Rond snel je BestelVerzoek af!
-          </p>
-    
+          </h2>
+
           <Jumbotron className='p-4'>
-            <OrderAddressRow isBilling={isBilling} readOnly={readOnly}/>
-            {/* <hr className='d-sm-none'/>
-            <OrderAddressRow isBilling={true}/> */}
-            <input type="checkbox" defaultChecked={this.state.readOnly} onChange={()=>this.useDifferentAddress()} /> Factuur adres anders dan bezargadres
+            <OrderEditAddress isBilling={isBilling}/>
           </Jumbotron>
     
           {/* <Jumbotron className='p-4'>
