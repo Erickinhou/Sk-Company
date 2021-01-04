@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Modal from 'react-modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FormattedMessage } from 'react-intl';
 
 import {
@@ -11,23 +8,22 @@ import {
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { getAddressForUpdate } from '../../utility/address';
-import webApi from '../../utility/webApi';
-import { getTranslatedCountries } from '../../utility/country';
-import SetChangeAddressText from '../spans/SetChangeAddressText';
-import appConfig from '../../utility/appConfig';
-import { getIntl } from '../../utility/translations';
-
+import { getAddressForUpdate, getAddressFromOrder } from '../utility/address';
+import webApi from '../utility/webApi';
+import { getTranslatedCountries } from '../utility/country';
+import appConfig from '../utility/appConfig';
+import { getIntl } from '../utility/translations';
 
 const OrderAddressEditModal = (props) => {
   const intl = getIntl();
 
   const [error, setError] = useState(false);
+  const [readOnly, setReadOnly] = useState(true);
 
   const {
-    isBilling, isLoading, address, order, dispatch, readOnly
+    isBilling, isLoading, order, dispatch
   } = props;
-  useEffect(()=>console.log(readOnly),readOnly );
+  const address = getAddressFromOrder(order, isBilling);
 
   // Set default country_iso2
   if (!address.country_iso2) {
@@ -85,14 +81,14 @@ const OrderAddressEditModal = (props) => {
 
   return (
     <>
-      <h2 className="modal-header-text">
+      <h2>
         Jouw gegevens
       </h2>
 
       {error ? showError() : ''}
 
       <Form onSubmit={handleSubmit(onSubmit)}>
-
+        <h4>Verzendadres</h4>
         <Form.Group>
           <Form.Label>
             <FormattedMessage id="Address.PostalCode" defaultMessage="Postal code" />
@@ -199,7 +195,7 @@ const OrderAddressEditModal = (props) => {
           </Form.Control>
         </Form.Group>
         
-        
+        <input type="checkbox" defaultChecked={readOnly} onChange={()=>setReadOnly(!readOnly)} /> Factuur adres anders dan bezargadres
         <Button disabled = {readOnly} type="submit" variant="success">
           {isLoading
             ? <Spinner animation="grow" size="sm" />
@@ -213,8 +209,6 @@ const OrderAddressEditModal = (props) => {
 
 OrderAddressEditModal.propTypes = {
   isBilling: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  address: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -223,3 +217,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(OrderAddressEditModal);
+

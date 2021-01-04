@@ -1,12 +1,4 @@
-.modal-header-text {
-    position: relative;
-}
-
-.modal-header-text button {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 .App > .spinner-grow {
     position: absolute;
@@ -45,3 +37,8 @@
     /* https://css-tricks.com/display-flow-root/ */
     display: flow-root;
 }
+
+body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+  }
