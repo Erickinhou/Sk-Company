@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FormattedMessage } from 'react-intl'
-import {Jumbotron } from 'react-bootstrap'
-import {Container} from './Create.style'
+import {Row, Jumbotron } from 'react-bootstrap'
+import {Container, DownArrow} from './Create.style'
 import OrderEditAddress from './OrderEditAddress'
 import OrderDetails from './OrderDetails'
 import OrderSummary from './OrderSummary'
@@ -14,7 +14,7 @@ import { connect } from 'react-redux'
 
 class Create extends Component {
   state = {
-    isBilling: true,
+    isBilling: false,
     name: ''
   }
   
@@ -54,10 +54,12 @@ class Create extends Component {
           <h2>
           Rond snel je BestelVerzoek af!
           </h2>
-
-          <Jumbotron className='p-4'>
-            <OrderEditAddress isBilling={isBilling}/>
-          </Jumbotron>
+          <Row className="justify-content-md-center">
+            <DownArrow style={{  }}/>
+          </Row>
+         
+          <OrderEditAddress isBilling={isBilling}/>
+          
     
           {/* <Jumbotron className='p-4'>
             { showFullOrder ?

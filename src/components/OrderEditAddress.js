@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-
 import {
-  Button, Col, Form, Row, Spinner, Alert,
+  Button, Col, Row, Spinner, Alert,
 } from 'react-bootstrap';
+import {Container, ReactControl, ReactCheck, ReactForm, ReactGroup, UserIcon, PhoneIcon, LocationIcon} from './OrderEditAddress.style'
 import { useForm } from 'react-hook-form';
+
 
 import { getAddressForUpdate, getAddressFromOrder } from '../utility/address';
 import webApi from '../utility/webApi';
@@ -18,7 +19,7 @@ const OrderAddressEditModal = (props) => {
   const intl = getIntl();
 
   const [error, setError] = useState(false);
-  const [readOnly, setReadOnly] = useState(true);
+  const [readOnly, setReadOnly] = useState(false);
 
   const {
     isBilling, isLoading, order, dispatch
@@ -80,46 +81,66 @@ const OrderAddressEditModal = (props) => {
   );
 
   return (
-    <>
+    <Container>
       <h2>
         Jouw gegevens
       </h2>
 
       {error ? showError() : ''}
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <ReactForm onSubmit={handleSubmit(onSubmit)}>
         <h4>Verzendadres</h4>
-        <Form.Group>
-          <Form.Label>
-            <FormattedMessage id="Address.PostalCode" defaultMessage="Postal code" />
-          </Form.Label>
-          <Form.Control
-            disabled = {readOnly}
-            type="text"
-            placeholder={intl.formatMessage({ id: 'Address.PostalCode', defaultMessage: 'Postal code' })}
-            name="zipcode"
-            ref={register({
-              required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
-              pattern: {
-                value: /\w+/,
-                message: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
-              },
-            })}
-          />
-          {errors.zipcode && renderFormGroupError(errors.zipcode.message)}
-        </Form.Group>
 
-        <Form.Group>
-          <Form.Label>
-            <FormattedMessage
-              id="OrderAddressEditModal.HouseNumberStreetFlatNumber"
-              defaultMessage="House number, street and flat number"
-            />
-          </Form.Label>
-          <Row>
+        <ReactGroup>
+          <Row className="d-flex align-items-center">
+          <UserIcon/>
+            <Col>  
+                  <ReactControl
+                  disabled = {!readOnly}
+                  type="text"
+                  placeholder="First name"
+                  name="firstName"
+                  ref={register({
+                    required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' })
+                  })}
+                  />
+            </Col>
             <Col>
-              <Form.Control
-                disabled = {readOnly}
+            <ReactControl
+              disabled = {!readOnly}
+              type="text"
+              placeholder="Last name"
+              name="lastName"
+              ref={register({
+                required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' })
+              })}
+              />
+            </Col>
+          </Row>
+          
+        </ReactGroup>
+        <ReactGroup>
+          <Row className="d-flex align-items-center">
+          <LocationIcon/>
+            <Col>
+                <ReactControl
+                disabled = {!readOnly}
+                type="text"
+                placeholder= "zipcode"
+                name="zipcode"
+                ref={register({
+                  required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
+                  pattern: {
+                    value: /\w+/,
+                    message: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
+                  },
+                })}
+                />
+                {errors.zipcode && renderFormGroupError(errors.zipcode.message)}
+            </Col>
+            <Col>
+              <ReactControl
+                disabled = {!readOnly}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.HouseNumber', defaultMessage: 'House number' })}
                 name="streetnumber"
@@ -133,9 +154,15 @@ const OrderAddressEditModal = (props) => {
               />
               {errors.streetnumber && renderFormGroupError(errors.streetnumber.message)}
             </Col>
+          </Row>
+          
+        </ReactGroup>
+
+        <ReactGroup>
+          <Row>
             <Col>
-              <Form.Control
-                disabled = {readOnly}
+              <ReactControl
+                disabled = {!readOnly}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.Street', defaultMessage: 'Street' })}
                 name="street"
@@ -150,60 +177,57 @@ const OrderAddressEditModal = (props) => {
               {errors.street && renderFormGroupError(errors.street.message)}
             </Col>
             <Col>
-              <Form.Control
-                disabled = {readOnly}
+              <ReactControl
+                disabled = {!readOnly}
                 type="text"
-                placeholder={intl.formatMessage({ id: 'Address.FlatNumber', defaultMessage: 'Flat number' })}
-                name="flatnumber"
-                ref={register()}
+                placeholder={intl.formatMessage({ id: 'Address.City', defaultMessage: 'City' })}
+                name="city"
+                ref={register({
+                  required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
+                  pattern: {
+                    value: /\w+/,
+                    message: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
+                  },
+                })}
               />
+              {errors.city && renderFormGroupError(errors.city.message)}
             </Col>
           </Row>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>
-            <FormattedMessage id="Address.City" defaultMessage="City" />
-          </Form.Label>
-          <Form.Control
-            disabled = {readOnly}
-            type="text"
-            placeholder={intl.formatMessage({ id: 'Address.City', defaultMessage: 'City' })}
-            name="city"
-            ref={register({
-              required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
-              pattern: {
-                value: /\w+/,
-                message: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
-              },
-            })}
-          />
-          {errors.city && renderFormGroupError(errors.city.message)}
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>
-            <FormattedMessage id="Address.Country" defaultMessage="Country" />
-          </Form.Label>
-          <Form.Control
-            disabled = {readOnly}
-            as="select"
-            name="country_iso2"
-            ref={register()}
-          >
-            {countryOptions}
-          </Form.Control>
-        </Form.Group>
-        
-        <input type="checkbox" defaultChecked={readOnly} onChange={()=>setReadOnly(!readOnly)} /> Factuur adres anders dan bezargadres
-        <Button disabled = {readOnly} type="submit" variant="success">
-          {isLoading
-            ? <Spinner animation="grow" size="sm" />
-            : <FormattedMessage id="OrderAddressEditModal.Update" defaultMessage="Update address" />}
-        </Button>
+        </ReactGroup>
+        <ReactGroup>
+          <Row className="d-flex align-items-center">
+            <PhoneIcon/>
+            <Col>
+              <ReactControl
+                  disabled = {!readOnly}
+                  type="text"
+                  placeholder="Phone number"
+                  name="phoneNumber"
+                  ref={register({
+                    required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
+                  })}
+              />
+              {errors.city && renderFormGroupError(errors.city.message)}
+            </Col>
+          </Row>
+        </ReactGroup>
         &nbsp;
-      </Form>
-    </>
+        <Row>
+          <Col>
+            <ReactCheck label="Factuur adres anders dan bezargadres" type="checkbox" checked={readOnly} onChange={()=>{
+            setReadOnly(!readOnly);
+            }} /> 
+          </Col>
+          <Col md="auto">
+          {!readOnly?'' : <Button type="submit" variant="success">
+            {isLoading
+              ? <Spinner animation="grow" size="sm" />
+              : <FormattedMessage id="OrderAddressEditModal.Update" defaultMessage="Update address" />}
+            </Button>}
+          </Col>
+        </Row>
+      </ReactForm>
+    </Container>
   );
 };
 

@@ -78,7 +78,6 @@ class Main extends Component {
     if (isLoading) {
       return (
           <Container>
-            <Header/>
             <Loader/>
           </Container>
       )
