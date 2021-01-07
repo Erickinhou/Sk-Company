@@ -15,7 +15,8 @@ class OrderAddressEditButton extends Component {
 
     dispatch(webApi.actions.updateAddress({ target }, {
       body: JSON.stringify(toAddress),
-    })).then(() => this.props.closeModal());
+    })).then((order) => console.log('new updated order --> ',order, 'target-->', this.target)
+    );
   }
 
   render() {

@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import webApi from '../utility/webApi.js'
 import { ensurePaymentIsPaid } from '../utility/payment'
 
-import { Alert, Container } from 'react-bootstrap'
+import { Alert } from 'react-bootstrap'
+import { Container } from './Main.style'
 import ThankYou from '../components/ThankYou'
 import Create from '../components/Create'
 import NotFound from '../components/NotFound'
@@ -66,49 +67,48 @@ class Main extends Component {
     /** We are validating the payment */
     if (checkingPayment) {
       return (
-        <div>
-          <Header/>
-          <CheckingPayment/>
-        </div>
+          <Container>
+            <Header/>
+            <CheckingPayment/>
+          </Container>
       )
     }
     
     /** Check if there is anything being fetched */
     if (isLoading) {
       return (
-        <div>
-          <Header/>
-          <Loader/>
-        </div>
+          <Container>
+            <Loader/>
+          </Container>
       )
     }
     
     /** Check if there is any order that is paid */
     if (hasOrder && order.is_paid) {
       return (
-        <div>
-          <Header/>
-          <ThankYou/>
-        </div>
+          <Container>
+            <Header/>
+            <ThankYou/>
+          </Container>
       )
     }
     
     /** Show order creation */
     if (hasOrder) {
       return (
-        <div>
-          <Header/>
-          <Create/>
-        </div>
+          <Container>
+            {/* <Header/> */}
+            <Create/>
+          </Container>
       )
     }
     
     /** Nothing found */
-    return (
-      <div>
-        <Header/>
-        <NotFound/>
-      </div>
+    return ( 
+        <Container>
+          <Header/>
+          <NotFound/>
+        </Container>
     )
   }
 }

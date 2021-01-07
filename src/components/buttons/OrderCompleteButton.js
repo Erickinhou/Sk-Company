@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, Spinner, Alert } from 'react-bootstrap';
+import { Spinner, Alert } from 'react-bootstrap';
+import {SubmitButton} from './SubmitButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FormattedMessage } from 'react-intl';
@@ -24,6 +25,10 @@ class OrderCompleteButton extends Component {
     const billingAddress = getAddressFromOrder(order, true);
     const shippingAddress = getAddressFromOrder(order, false);
     const errors = [];
+
+    console.log('billingAddress --> ', billingAddress);
+    console.log('shippingAddress --> ', shippingAddress);
+    
 
     if (!hasRequiredFields(shippingAddress)) {
       errors.push(intl.formatMessage({ id: 'Error.InvalidShippingAddress', defaultMessage: 'Invalid shipping address' }));
@@ -63,7 +68,7 @@ class OrderCompleteButton extends Component {
         <Alert variant="danger">
           <FontAwesomeIcon icon={faExclamationTriangle} />
           {' '}
-          <FormattedMessage id="Error.OrderComplete" defaultMessage="An error occurred while completing your order" />
+          <span An error occurred while completing your order/>
           :
           {fatalError}
         </Alert>
@@ -83,7 +88,7 @@ class OrderCompleteButton extends Component {
     });
 
     return (
-      <Button
+      <SubmitButton
         disabled={hasErrors}
         className={className}
         onClick={() => this.payOrder()}
@@ -93,7 +98,7 @@ class OrderCompleteButton extends Component {
         {hasErrors ? <FontAwesomeIcon icon={faExclamationTriangle} /> : ''}
         &nbsp;
         {isLoading ? <Spinner animation="grow" size="sm" /> : completeButtonText}
-      </Button>
+      </SubmitButton>
     );
   }
 }
