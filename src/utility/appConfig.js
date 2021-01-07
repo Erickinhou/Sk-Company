@@ -1,9 +1,9 @@
 import { get, cloneDeep } from 'lodash'
 import AppConfig from '../mock/data/AppConfig.json';
 
-if ( process.env.NODE_ENV === 'development' ) {
+//if ( process.env.NODE_ENV === 'development' ) {
   window.AppConfig = AppConfig;
-}
+// }
 
 export default class {
   static config = cloneDeep(window.AppConfig)
