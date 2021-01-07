@@ -7,6 +7,7 @@ export const Container = styled.div`
   & > h2{
     color: #000;
     font-size: 24px;
+    margin-bottom: 20px;
   }
 `
 
@@ -38,7 +39,6 @@ export const ReactGroup = styled(FormGroup)`
 `
 
 export const ReactControl = styled(FormControl).attrs(props =>{ 
-    console.log(props);
     return {
         style: {
             border: "none",

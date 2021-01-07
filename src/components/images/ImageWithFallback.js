@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-bootstrap';
+import {ImageWrapper, ObjectWrapper} from './ImageWithFallback.style'
 
 class ImageWithFallback extends Component {
   render() {
@@ -9,9 +9,11 @@ class ImageWithFallback extends Component {
     } = this.props;
     return (
       // If the object can't load the imageUrl, it will fallback to the Image inside the <object>
-      <object data={imageUrl} type="image/png" className={`flex-middle ${className}`}>
-        <Image src={imageUrlFallback} alt={alt} className="w-100" />
-      </object>
+      <div className= {`${className}`}>
+        <ObjectWrapper data={imageUrl} type="image/png" className={`flex-middle`}>
+          <ImageWrapper src={imageUrlFallback} alt={alt} className="w-100" />
+        </ObjectWrapper>
+      </div>
     );
   }
 }

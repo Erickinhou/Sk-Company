@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Alert, Col, Row, Spinner,
+  Alert, Col, Spinner, Row
 } from 'react-bootstrap';
+import { Container, ImagePayment} from './OrderPayments.style'
 import { isEmpty } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import webApi from '../utility/webApi';
 import { updatePaymentId } from '../actions/paymentActions';
-import ImageWithFallback from './images/ImageWithFallback';
 
 class OrderPayments extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class OrderPayments extends Component {
     if (isEmpty(payments)) return <FormattedMessage id="OrderPayment.MissingPayments" defaultMessage="No payment methods available." />;
 
     const paymentsEl = payments.map((payment) => {
-      const borderClassName = payment.id === paymentId ? 'border border-primary' : 'border border-light';
+      const borderClassName = payment.id === paymentId ? true : false;
       const mainImage = `https://static.pay.nl/payment_profiles/100x100/${payment.eid}.png`;
       return (
         <Col
@@ -56,19 +56,21 @@ class OrderPayments extends Component {
           onClick={() => dispatch(updatePaymentId(payment.id))}
           sm={4}
           xs={6}
-          className="p-3"
+          className="p-2"
         >
-          <div className={`bg-white p-3 flex-center ${borderClassName}`}>
-            <ImageWithFallback imageUrl={mainImage} imageUrlFallback={payment.image_url} alt={payment.title} className="payment-method-images" />
+          <div className={`bg-white flex-center `}>
+            <ImagePayment imageUrl={mainImage} imageUrlFallback={payment.image_url} alt={payment.title} border={borderClassName} />
           </div>
         </Col>
       );
     });
 
     return (
-      <Row>
-        {paymentsEl}
-      </Row>
+      <Container>
+        <Row>
+          {paymentsEl}
+        </Row>
+      </Container>
     );
   }
 }

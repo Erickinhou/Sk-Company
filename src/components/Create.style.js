@@ -20,4 +20,9 @@ export const DownArrow = styled(AiOutlineDown)`
     stroke-width: 40px;
     width: 30px;
     height: 30px;
+    margin: 10px;
 `
+
+export const Footer = styled.div`
+  padding-bottom: 20px;
+`;

@@ -5,10 +5,11 @@ import { FormattedMessage } from 'react-intl';
 import {
   Button, Col, Row, Spinner, Alert,
 } from 'react-bootstrap';
-import {Container, ReactControl, ReactCheck, ReactForm, ReactGroup, UserIcon, PhoneIcon, LocationIcon} from './OrderEditAddress.style'
+import {Container, ReactControl, ReactCheck, ReactForm, ReactGroup, UserIcon, PhoneIcon, LocationIcon
+} from './OrderEditAddress.style'
 import { useForm } from 'react-hook-form';
 
-
+import { SubmitButton } from './buttons/SubmitButton'
 import { getAddressForUpdate, getAddressFromOrder } from '../utility/address';
 import webApi from '../utility/webApi';
 import { getTranslatedCountries } from '../utility/country';
@@ -38,11 +39,6 @@ const OrderAddressEditModal = (props) => {
     defaultValues: address,
   });
 
-  // Get options for country select
-  const countryOptions = getTranslatedCountries(intl).map((country) => (
-    <option key={country.iso2} value={country.iso2}>{country.name}</option>
-  ));
-
   const updateAddress = (newAddress) => {
     const target = isBilling ? 'billing_address' : 'shipping_address';
     return dispatch(webApi.actions.updateAddress({ target }, {
@@ -53,7 +49,7 @@ const OrderAddressEditModal = (props) => {
   const onSubmit = async (updatedAddress) => {
     // Reset error
     setError(false);
-
+    console.log('updatedAddress', updatedAddress);
     try {
       // Update address
       const newAddress = getAddressForUpdate(order, updatedAddress, isBilling);
@@ -219,11 +215,11 @@ const OrderAddressEditModal = (props) => {
             }} /> 
           </Col>
           <Col md="auto">
-          {!readOnly?'' : <Button type="submit" variant="success">
+          {!readOnly?'' : <SubmitButton type="submit" variant="success">
             {isLoading
               ? <Spinner animation="grow" size="sm" />
               : <FormattedMessage id="OrderAddressEditModal.Update" defaultMessage="Update address" />}
-            </Button>}
+            </SubmitButton>}
           </Col>
         </Row>
       </ReactForm>
