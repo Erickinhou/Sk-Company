@@ -7,6 +7,7 @@ import { Alert } from 'react-bootstrap'
 import { Container } from './Main.style'
 import ThankYou from '../components/ThankYou'
 import Create from '../components/Create'
+import Order from '../components/Order/Order'
 import NotFound from '../components/NotFound'
 import Header from '../components/Header'
 import CheckingPayment from '../components/CheckingPayment'
@@ -84,17 +85,17 @@ class Main extends Component {
     }
     
     /** Check if there is any order that is paid */
-    if (hasOrder && order.is_paid) {
+    if (hasOrder) {
       return (
           <Container>
-            <Header/>
             <ThankYou/>
+            <Order/>
           </Container>
       )
     }
     
     /** Show order creation */
-    if (hasOrder) {
+    if (hasOrder && order.is_paid) {
       return (
           <Container>
             {/* <Header/> */}
