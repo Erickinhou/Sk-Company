@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Jumbotron } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { Container, DownArrow, Main } from './ThankYou.style'
 import { FormattedMessage } from 'react-intl';
-import appConfig from '../utility/appConfig';
+import appConfig from '../../../utility/appConfig';
+import { Footer } from '../Footer/Footer';
 
 class ThankYou extends Component {
   render() {
     const { order } = this.props;
+    const name = order.created_by.name;
     return (
-      <div>
-        <Container className="pt-4">
+      <Container>
+        <Main>
+          <div>
+            <h1> {`Hey ${name}`}, </h1>
+            <h2>
+              Bedankt voor je bestelling
+            </h2>
+            <Row className="justify-content-center">
+              <DownArrow/>
+            </Row>
+          </div>
+
           <h1>
             <FormattedMessage
               id="ThankYou.Header"
               defaultMessage="Thank you for completing your order!"
             />
           </h1>
-          <Jumbotron className="p-4">
+          <div>
             <p>
               <FormattedMessage
                 id="ThankYou.Total"
@@ -47,9 +60,10 @@ class ThankYou extends Component {
                 values={{ number: order.number }}
               />
             </p>
-          </Jumbotron>
-        </Container>
-      </div>
+          </div>
+        </Main>
+        <Footer/>
+      </Container>
     );
   }
 }

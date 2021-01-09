@@ -4,10 +4,12 @@ import webApi from '../utility/webApi.js'
 import { ensurePaymentIsPaid } from '../utility/payment'
 
 import { Alert } from 'react-bootstrap'
-import { Container } from './Main.style'
-import ThankYou from '../components/ThankYou'
+import { Container, MobileContainer } from './Main.style'
+import { BrowserView, MobileView } from 'react-device-detect'
+import ThankYou from '../components/Fragments/ThankYou/ThankYou'
 import Create from '../components/Create'
-import Order from '../components/Order/Order'
+import Order from '../components/Fragments/Order/Order'
+import MobileCreate from '../components/Fragments/mobile/MobileCreate/MobileCreate'
 import NotFound from '../components/NotFound'
 import Header from '../components/Header'
 import CheckingPayment from '../components/CheckingPayment'
@@ -85,22 +87,34 @@ class Main extends Component {
     }
     
     /** Check if there is any order that is paid */
-    if (hasOrder) {
+    if (hasOrder && order.is_paid) {
       return (
+        <BrowserView>
           <Container>
-            <ThankYou/>
-            <Order/>
+            <ThankYou rounded={true} />             
+            <Order address={true}/>
           </Container>
+        </BrowserView>   
       )
     }
     
     /** Show order creation */
-    if (hasOrder && order.is_paid) {
+    if (hasOrder) {
       return (
+        <>
+        <BrowserView>
           <Container>
-            {/* <Header/> */}
             <Create/>
+            <Order address={false} rounded={true}/>
           </Container>
+        </BrowserView>
+
+        <MobileView>
+          <MobileContainer>
+            <MobileCreate/>
+          </MobileContainer>
+        </MobileView>
+        </>
       )
     }
     

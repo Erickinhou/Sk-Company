@@ -63,6 +63,7 @@ export const ReactControl = styled(FormControl).attrs(props =>{
 `
 
 export const ReactCheck = styled(FormCheck)`
+  margin-top: 10px;
   & > label{
     font-size: 14px;
     font-weight: 400;

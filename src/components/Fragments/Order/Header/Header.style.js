@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AiOutlineDown } from 'react-icons/ai'
-import CompanyLogo from '../../CompanyLogo'
+import CompanyLogo from '../../../CompanyLogo'
 
 export const Logo = styled(CompanyLogo)`
   height: 20%;
@@ -8,12 +8,10 @@ export const Logo = styled(CompanyLogo)`
 
 export const Container  = styled.div`
   background-color: #fff;
-  width: 50vw;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 40px 20px;
   text-align: center;
   & > div {
     height: 100%;
