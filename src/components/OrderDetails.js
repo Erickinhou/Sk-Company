@@ -65,7 +65,7 @@ class OrderDetails extends Component {
 }
 
 OrderDetails.propTypes = {
-  pdfUrl: PropTypes.object,
+  pdfUrl: PropTypes.bool,
   hideFullOrder: PropTypes.func.isRequired,
 };
 
