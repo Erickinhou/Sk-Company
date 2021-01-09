@@ -7,6 +7,7 @@ import { Alert } from 'react-bootstrap'
 import { Container, MobileContainer } from './Main.style'
 import { BrowserView, MobileView } from 'react-device-detect'
 import ThankYou from '../components/Fragments/ThankYou/ThankYou'
+import MobileThankYou from '../components/Fragments/mobile/MobileThankYou/MobileThankYou'
 import Create from '../components/Create'
 import Order from '../components/Fragments/Order/Order'
 import MobileCreate from '../components/Fragments/mobile/MobileCreate/MobileCreate'
@@ -87,33 +88,40 @@ class Main extends Component {
     }
     
     /** Check if there is any order that is paid */
-    if (hasOrder && order.is_paid) {
+    if (hasOrder) {
       return (
-        <BrowserView>
-          <Container>
-            <ThankYou rounded={true} />             
-            <Order address={true}/>
-          </Container>
-        </BrowserView>   
+        <>
+          <BrowserView>
+            <Container>
+              <ThankYou rounded={true} />             
+              <Order address={true}/>
+            </Container>
+          </BrowserView>   
+          <MobileView>
+            <MobileContainer>
+              <MobileThankYou/>
+            </MobileContainer>
+          </MobileView>
+        </>
       )
     }
     
     /** Show order creation */
-    if (hasOrder) {
+    if (hasOrder && order.is_paid) {
       return (
         <>
-        <BrowserView>
-          <Container>
-            <Create/>
-            <Order address={false} rounded={true}/>
-          </Container>
-        </BrowserView>
+          <BrowserView>
+            <Container>
+              <Create/>
+              <Order address={false} rounded={true}/>
+            </Container>
+          </BrowserView>
 
-        <MobileView>
-          <MobileContainer>
-            <MobileCreate/>
-          </MobileContainer>
-        </MobileView>
+          <MobileView>
+            <MobileContainer>
+              <MobileCreate/>
+            </MobileContainer>
+          </MobileView>
         </>
       )
     }

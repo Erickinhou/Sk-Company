@@ -4,11 +4,12 @@ import { FiBox, FiTruck} from 'react-icons/fi'
 import { Container, Start, Middle, End, SvgWrapper } from './ItemOrder.style'
 
 export const ItemOrder = (props) => {
-  const {item, shipment} = props;
+  const {item, shipment, isMobile} = props;
+  console.log(isMobile);
   console.log(item);
   if (shipment){
     return(
-      <Container>
+      <Container isMobile = {isMobile}>
       <Start>
         <SvgWrapper>
           <FiTruck size={20}/> 
@@ -22,7 +23,7 @@ export const ItemOrder = (props) => {
   }
   
   return(
-    <Container>
+    <Container isMobile = {isMobile}>
       <Start>
         <SvgWrapper>
           <FiBox size={20}/>
@@ -46,4 +47,5 @@ export const ItemOrder = (props) => {
 ItemOrder.propTypes = {
   item: PropTypes.object.isRequired,
   shipment: PropTypes.bool,
+  isMobile: PropTypes.bool,
 };

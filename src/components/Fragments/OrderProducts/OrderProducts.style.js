@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #fff;
+  background-color: ${props => props.isMobile ? 'transparent': '#fff'};
+  padding: ${props => props.isMobile && '20px'}; 
+  color: ${props => props.isMobile && '#fff'}; 
   display: flex;
   flex-direction: column;
-
 `;
 
 export const Total = styled.div`
