@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "NODE_ENV=development react-scripts build",
+    "build": "react-scripts build NODE_ENV=development",
     "test": "react-scripts test",
     "deploy": "vercel",
     "translate": "npm run translation:extract && npm run translation:json2pot && npm run translation:poedit && npm run translation:po2json",
