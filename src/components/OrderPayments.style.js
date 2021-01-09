@@ -8,8 +8,12 @@ export const Container = styled.div`
     overflow: hidden;
 `
 export const ImagePayment = styled(ImageWithFallback)`
-    border-radius: 22px;
+    border-radius: 28px;
     padding: 5px;
     border: ${props => props.border ? '5px solid #00a3e2': '5px solid transparent'}
   
+`;
+
+export const Footer = styled.div`
+  padding-bottom: 20px;
 `;

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Total } from './OrderProducts.style'
 import { ItemOrder } from './ItemOrder/ItemOrder'
-import { getAddressFromOrder } from '../../../utility/address';
+import { getAddressFromOrder } from '../../../../utility/address';
 
 const OrderProducts  = (props) => {
   console.log(props);

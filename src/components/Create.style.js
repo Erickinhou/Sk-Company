@@ -3,8 +3,9 @@ import {AiOutlineDown} from 'react-icons/ai'
 
 export const Container = styled.div`
     background-color: #fff;
-    margin: 0 5%;
-    padding: 2.5% 2.5% 0 2.5%;
+    width: 50%;
+    margin-left: 5%;
+    padding: 2.5%;
     & > h1{
         font-size: 48px;
     }
@@ -22,7 +23,3 @@ export const DownArrow = styled(AiOutlineDown)`
     height: 30px;
     margin: 10px;
 `
-
-export const Footer = styled.div`
-  padding-bottom: 20px;
-`;

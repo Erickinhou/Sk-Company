@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import {Row } from 'react-bootstrap'
-import {Container, Footer, DownArrow} from './Create.style'
+import {Container, DownArrow} from './Create.style'
 import OrderEditAddress from './OrderEditAddress'
 import OrderPayments from './OrderPayments'
-import Total from './Total'
-import OrderCompleteButton from './buttons/OrderCompleteButton'
 import { getAddressFromOrder, getAddressForUpdate } from '../utility/address';
 import webApi from '../utility/webApi';
 import Loader from '../components/Loader'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 class Create extends Component {
@@ -40,12 +39,11 @@ class Create extends Component {
 
   
   render () {
-    const { order } = this.props
+    const { order, isMobile } = this.props
     const { isBilling, name } = this.state;
     console.log('order',order);
     return (
-      <div>
-        <Container>
+        <Container isMobile={isMobile}>
           {name ? (<h1> {`Hey ${name}`}, </h1>) : (<Loader/>)}
           <h2>
           Rond snel je BestelVerzoek af!
@@ -53,29 +51,18 @@ class Create extends Component {
           <Row className="justify-content-center">
             <DownArrow/>
           </Row>
-         
+
           <OrderEditAddress isBilling={isBilling}/>
-          
-    
-          {/* <Jumbotron className='p-4'>
-            { showFullOrder ?
-              <OrderDetails hideFullOrder={() => this.hideFullOrder()}/> :
-              <OrderSummary showFullOrder={() => this.showFullOrder()}/>}
-          </Jumbotron> */}
-            <Footer>
-              <OrderPayments/>
-              <Total />
-              <div className='d-flow-root'>
-                <div className='float-right'>
-                  <OrderCompleteButton className='btn-block'/>
-                </div>
-              </div>
-            </Footer>
+          <OrderPayments/>
         </Container>
-      </div>
     )
   }
 }
+
+Create.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};
+
 
 const mapStateToProps = (state) => {
   return {

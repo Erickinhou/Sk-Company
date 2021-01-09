@@ -23,7 +23,7 @@ const OrderAddressEditModal = (props) => {
   const [readOnly, setReadOnly] = useState(false);
 
   const {
-    isBilling, isLoading, order, dispatch
+    isBilling, isLoading, order, dispatch, isMobile,
   } = props;
   const address = getAddressFromOrder(order, isBilling);
 
@@ -78,9 +78,7 @@ const OrderAddressEditModal = (props) => {
 
   return (
     <Container>
-      <h2>
-        Jouw gegevens
-      </h2>
+      {!isMobile && <h2>Jouw gegevens</h2>}
 
       {error ? showError() : ''}
 
@@ -229,6 +227,7 @@ const OrderAddressEditModal = (props) => {
 
 OrderAddressEditModal.propTypes = {
   isBilling: PropTypes.bool,
+  isMobile: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

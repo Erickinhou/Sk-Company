@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   Alert, Col, Spinner, Row
 } from 'react-bootstrap';
-import { Container, ImagePayment} from './OrderPayments.style'
+import { Container, ImagePayment, Footer} from './OrderPayments.style'
+import Total from './Total'
+import OrderCompleteButton from './buttons/OrderCompleteButton'
 import { isEmpty } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import webApi from '../utility/webApi';
@@ -66,11 +68,21 @@ class OrderPayments extends Component {
     });
 
     return (
-      <Container>
-        <Row>
-          {paymentsEl}
-        </Row>
-      </Container>
+      <>
+      <Footer>
+        <Container>
+          <Row>
+            {paymentsEl}
+          </Row>
+        </Container>
+        <Total />
+        <div className='d-flow-root'>
+          <div className='float-right'>
+            <OrderCompleteButton className='btn-block'/>
+          </div>
+        </div>
+      </Footer>
+      </>
     );
   }
 }

@@ -18,6 +18,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
+    "react-device-detect": "^1.15.0",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.4.0",
     "react-icons": "^4.1.0",
@@ -32,7 +33,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "PUBLIC_URL='.' react-scripts build",
+    "build": "NODE_ENV=development react-scripts build",
     "test": "react-scripts test",
     "deploy": "vercel",
     "translate": "npm run translation:extract && npm run translation:json2pot && npm run translation:poedit && npm run translation:po2json",
