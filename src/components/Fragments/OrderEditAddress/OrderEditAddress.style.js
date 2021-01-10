@@ -1,6 +1,7 @@
 import {Form, FormControl, FormGroup, FormCheck} from 'react-bootstrap'
 import {HiOutlineLocationMarker} from 'react-icons/hi'
 import {FiPhone, FiUser} from 'react-icons/fi'
+import {BiWorld} from 'react-icons/bi'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -11,6 +12,10 @@ export const Container = styled.div`
   }
 `
 
+export const CountryOption = styled.option`
+  width: 100%;
+`;
+
 export const LocationIcon = styled(HiOutlineLocationMarker)`
   position: absolute;
   color: rgba(0,0,0,0.5);
@@ -19,10 +24,11 @@ export const PhoneIcon = styled(FiPhone)`
   position: absolute;
   color: rgba(0,0,0,0.5);
 `
-export const UserIcon = styled(FiUser)`
+
+export const WorldIcon = styled(BiWorld)`
   position: absolute;
   color: rgba(0,0,0,0.5);
-`
+`;
 
 export const ReactForm = styled(Form)`
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
@@ -42,18 +48,20 @@ export const ReactControl = styled(FormControl).attrs(props =>{
     return {
         style: {
             border: "none",
-            borderBottom: props.disabled ? "1px solid rgba(0,0,0,0.3)": "1px solid rgba(0,0,0,0.6)",
+            borderBottom: props.disabled ? "1px solid #999": "1px solid #666",
         }
 }})`
   font-weight: 400;
   border-radius: 0;
   margin-left: 10px;
   background: transparent !important;
-  &::placeholder{ 
+  width: 100%;
+  color: ${props => props.disabled ? '#999' : '#666;' };
+  &:placeholder{ 
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    color: rgba(0,0,0,0.5);
+    color: ${props => props.disabled ? '#999' : '#666;' };
     opacity: 1; 
   }
   &:focus{ 

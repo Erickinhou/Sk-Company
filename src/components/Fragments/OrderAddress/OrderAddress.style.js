@@ -12,6 +12,7 @@ export const Container = styled.div`
 
 export const Row = styled.div`
   display: flex;
+  align-items: center;
   color: #666;
   margin: 10px 0;
   & > div{

@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { getAddressFromOrder } from '../../../utility/address'
 import { Container, Row, AddressWrapper } from './OrderAddress.style'
 import {HiOutlineLocationMarker} from 'react-icons/hi'
-import {FiPhone, FiUser} from 'react-icons/fi'
+import {FiUser} from 'react-icons/fi'
+import {BiWorld} from 'react-icons/bi'
 
 const OrderAddress = (props) => {
-  const {street, streetnumber, city, zipcode} = getAddressFromOrder(props.order, true);
+  const address = getAddressFromOrder(props.order, true);
+  const {street, country_iso2, streetnumber, city, zipcode} = getAddressFromOrder(props.order, true);
   const { name } = props.order.created_by
   return (
     <Container>
@@ -31,9 +33,9 @@ const OrderAddress = (props) => {
         </AddressWrapper>
       </Row>
       <Row>
-        <FiPhone/>
+        <BiWorld/>
         <div>
-        +316 123 456 78
+          {country_iso2}
         </div>
       </Row>
     </Container>  

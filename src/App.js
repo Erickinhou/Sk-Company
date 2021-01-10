@@ -7,9 +7,9 @@ import { getIntl } from './utility/translations';
 
 import { makeServer } from './mock';
 
-if (process.env.NODE_ENV === 'development') {
+//if (process.env.NODE_ENV === 'development') {
   makeServer();
-}
+//}
 
 function App() {
   return (

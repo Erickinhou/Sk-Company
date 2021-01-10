@@ -6,7 +6,7 @@ export const Container = styled.div`
   padding: 10px;
   margin: 10px;
   justify-content: center;
-  border-bottom: 1px solid #666;
+  border-bottom: 1px solid ${props => props.isMobile ? ' #fff' :'#666'};
 `;
 
 export const Middle = styled.div`

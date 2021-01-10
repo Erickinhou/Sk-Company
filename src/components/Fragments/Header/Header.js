@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import CompanyLogo from './CompanyLogo';
+import CompanyLogo from '../CompanyLogo/CompanyLogo';
 
 export default function Header() {
   return (

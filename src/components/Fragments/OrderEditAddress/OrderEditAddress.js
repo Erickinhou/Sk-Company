@@ -3,30 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import {
-  Button, Col, Row, Spinner, Alert,
+  Col, Row, Spinner, Alert,
 } from 'react-bootstrap';
-import {Container, ReactControl, ReactCheck, ReactForm, ReactGroup, UserIcon, PhoneIcon, LocationIcon
+import {Container, ReactControl, ReactCheck, ReactForm, ReactGroup, WorldIcon, LocationIcon, CountryOption
 } from './OrderEditAddress.style'
 import { useForm } from 'react-hook-form';
 
-import { SubmitButton } from './buttons/SubmitButton'
-import { getAddressForUpdate, getAddressFromOrder } from '../utility/address';
-import webApi from '../utility/webApi';
-import { getTranslatedCountries } from '../utility/country';
-import appConfig from '../utility/appConfig';
-import { getIntl } from '../utility/translations';
+import { SubmitButton } from '../../buttons/SubmitButton'
+import { getAddressForUpdate, getAddressFromOrder } from '../../../utility/address';
+import webApi from '../../../utility/webApi';
+import { getTranslatedCountries } from '../../../utility/country';
+import appConfig from '../../../utility/appConfig';
+import { getIntl } from '../../../utility/translations';
 
 const OrderAddressEditModal = (props) => {
   const intl = getIntl();
 
   const [error, setError] = useState(false);
-  const [readOnly, setReadOnly] = useState(false);
+  const [loaded, setloaded] = useState(false);
 
   const {
-    isBilling, isLoading, order, dispatch, isMobile,
+    isBilling, ToogleIsBilling, isLoading, order, dispatch, isMobile
   } = props;
-  const address = getAddressFromOrder(order, isBilling);
 
+  const address = getAddressFromOrder(order, isBilling);
   // Set default country_iso2
   if (!address.country_iso2) {
     address.country_iso2 = appConfig.get('initialData.company_country_iso2');
@@ -39,6 +39,12 @@ const OrderAddressEditModal = (props) => {
     defaultValues: address,
   });
 
+  // Get options for country select
+  const countryOptions = getTranslatedCountries(intl).map((country) => (
+    <CountryOption key={country.iso2} value={country.iso2}>{country.name}</CountryOption>
+  ));
+
+
   const updateAddress = (newAddress) => {
     const target = isBilling ? 'billing_address' : 'shipping_address';
     return dispatch(webApi.actions.updateAddress({ target }, {
@@ -49,13 +55,13 @@ const OrderAddressEditModal = (props) => {
   const onSubmit = async (updatedAddress) => {
     // Reset error
     setError(false);
-    console.log('updatedAddress', updatedAddress);
     try {
       // Update address
       const newAddress = getAddressForUpdate(order, updatedAddress, isBilling);
       await updateAddress(newAddress);
       // Resets internal form cache
       reset(updatedAddress);
+      setloaded(true);
     } catch (err) {
       setError(err.message);
     }
@@ -84,41 +90,13 @@ const OrderAddressEditModal = (props) => {
 
       <ReactForm onSubmit={handleSubmit(onSubmit)}>
         <h4>Verzendadres</h4>
-
-        <ReactGroup>
-          <Row className="d-flex align-items-center">
-          <UserIcon/>
-            <Col>  
-                  <ReactControl
-                  disabled = {!readOnly}
-                  type="text"
-                  placeholder="First name"
-                  name="firstName"
-                  ref={register({
-                    required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' })
-                  })}
-                  />
-            </Col>
-            <Col>
-            <ReactControl
-              disabled = {!readOnly}
-              type="text"
-              placeholder="Last name"
-              name="lastName"
-              ref={register({
-                required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' })
-              })}
-              />
-            </Col>
-          </Row>
-          
-        </ReactGroup>
+         
         <ReactGroup>
           <Row className="d-flex align-items-center">
           <LocationIcon/>
             <Col>
                 <ReactControl
-                disabled = {!readOnly}
+                disabled = {isBilling}
                 type="text"
                 placeholder= "zipcode"
                 name="zipcode"
@@ -134,7 +112,7 @@ const OrderAddressEditModal = (props) => {
             </Col>
             <Col>
               <ReactControl
-                disabled = {!readOnly}
+                disabled = {isBilling}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.HouseNumber', defaultMessage: 'House number' })}
                 name="streetnumber"
@@ -156,7 +134,7 @@ const OrderAddressEditModal = (props) => {
           <Row>
             <Col>
               <ReactControl
-                disabled = {!readOnly}
+                disabled = {isBilling}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.Street', defaultMessage: 'Street' })}
                 name="street"
@@ -172,7 +150,7 @@ const OrderAddressEditModal = (props) => {
             </Col>
             <Col>
               <ReactControl
-                disabled = {!readOnly}
+                disabled = {isBilling}
                 type="text"
                 placeholder={intl.formatMessage({ id: 'Address.City', defaultMessage: 'City' })}
                 name="city"
@@ -190,30 +168,26 @@ const OrderAddressEditModal = (props) => {
         </ReactGroup>
         <ReactGroup>
           <Row className="d-flex align-items-center">
-            <PhoneIcon/>
+            <WorldIcon/>
             <Col>
-              <ReactControl
-                  disabled = {!readOnly}
-                  type="text"
-                  placeholder="Phone number"
-                  name="phoneNumber"
-                  ref={register({
-                    required: intl.formatMessage({ id: 'Error.Required', defaultMessage: 'Required' }),
-                  })}
-              />
-              {errors.city && renderFormGroupError(errors.city.message)}
+            <ReactControl
+              disabled = {isBilling}
+              as="select"
+              name="country_iso2"
+              ref={register()}
+            >
+            {countryOptions}
+          </ReactControl>
             </Col>
           </Row>
         </ReactGroup>
         &nbsp;
         <Row>
           <Col>
-            <ReactCheck label="Factuur adres anders dan bezargadres" type="checkbox" checked={readOnly} onChange={()=>{
-            setReadOnly(!readOnly);
-            }} /> 
+            <ReactCheck label="Factuur adres anders dan bezargadres" type="checkbox" checked={!isBilling} onChange={ToogleIsBilling} /> 
           </Col>
           <Col md="auto">
-          {!readOnly?'' : <SubmitButton type="submit" variant="success">
+          {isBilling?'' : <SubmitButton disabled={loaded} type="submit" variant="success">
             {isLoading
               ? <Spinner animation="grow" size="sm" />
               : <FormattedMessage id="OrderAddressEditModal.Update" defaultMessage="Update address" />}
@@ -227,7 +201,8 @@ const OrderAddressEditModal = (props) => {
 
 OrderAddressEditModal.propTypes = {
   isBilling: PropTypes.bool,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  ToogleIsBilling: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CompanyLogo from '../../../CompanyLogo'
+import CompanyLogo from '../../CompanyLogo/CompanyLogo'
 
 export const Container = styled.div`
   padding: 5%;

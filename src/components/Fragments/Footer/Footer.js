@@ -10,17 +10,19 @@ export const Footer = ()=>{
         </Title>
         <Flex>
           <Text>
-            This OrderRequest was sent to you by SK Fashion. We’ve sent you this email to complete your order with us per your request.
+          Dit BestelVerzoek is gestuurd door SK Fashion.
+          Deze email is verstuurd om je bestelling af te
+          ronden op jouw eigen verzoek
           </Text> 
           <Text>
-            Questions on your order?
-            Please contact SK Fashion 
-            info@skfashion.nl /+31(0)548-514843 
+            Vragen over je bestelling?
+            Neem contact op met SK Fashion
+            info@skfashion.nl / +31 (0)548-514843  
           </Text>
         </Flex>
         <Flex>
           <div>
-            <h4>OrderRequest powered by:</h4>
+            <h4>BestelVerzoek is een dienst van:</h4>
             <div>www.storekeeper.nl</div>
           </div>  
           <LogoWrapper>
