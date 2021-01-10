@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
 
-import appConfig from '../utility/appConfig';
+import appConfig from '../../../utility/appConfig';
 
 const CompanyLogo = () => {
   const { company_name: companyName, company_image_url: companyImageUrl } = appConfig.get('initialData');

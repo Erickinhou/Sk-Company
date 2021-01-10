@@ -5,9 +5,9 @@ import { isEmpty } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, Alert } from 'react-bootstrap';
-import webApi from '../utility/webApi';
-import appConfig from '../utility/appConfig';
-import PdfViewer from './PdfViewer';
+import webApi from '../../../utility/webApi';
+import appConfig from '../../../utility/appConfig';
+import PdfViewer from '../PdfViewer/PdfViewer';
 
 class OrderDetails extends Component {
   constructor(props) {

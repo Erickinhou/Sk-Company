@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Details, DownArrow, Logo } from './Header.style'
+import { Container, Details, DownArrow, Logo } from './OrderHeader.style'
 import { connect } from 'react-redux'
 
 const Header = (props)=> {

@@ -5,8 +5,6 @@ import { Container, Start, Middle, End, SvgWrapper } from './ItemOrder.style'
 
 export const ItemOrder = (props) => {
   const {item, shipment, isMobile} = props;
-  console.log(isMobile);
-  console.log(item);
   if (shipment){
     return(
       <Container isMobile = {isMobile}>

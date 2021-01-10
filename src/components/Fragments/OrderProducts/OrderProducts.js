@@ -13,8 +13,8 @@ const OrderProducts  = (props) => {
   const getPercent = ()=> ((value/value_wt*100*-1)+100).toFixed(2);
   return (
     <Container isMobile = {isMobile}>
-      {items.map((item)=>(<ItemOrder isMobile={isMobile} item ={item} shipment={false}/>))}
-      {taxes.map((tax)=>(<ItemOrder isMobile={isMobile} item={{...tax, city}} shipment={true}/>))}
+      {items.map((item, index)=>(<ItemOrder key = {index}  isMobile={isMobile} item ={item} shipment={false}/>))}
+      {taxes.map((tax, index)=>(<ItemOrder key={index} isMobile={isMobile}  item={{...tax, city}} shipment={true}/>))}
       <Total bold>
         <div>
           Totaal(Incl.BTW)

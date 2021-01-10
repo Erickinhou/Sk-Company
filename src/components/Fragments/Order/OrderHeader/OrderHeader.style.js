@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AiOutlineDown } from 'react-icons/ai'
-import CompanyLogo from '../../../CompanyLogo'
+import CompanyLogo from '../../CompanyLogo/CompanyLogo'
 
 export const Logo = styled(CompanyLogo)`
   height: 20%;

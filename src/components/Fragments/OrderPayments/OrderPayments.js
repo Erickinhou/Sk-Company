@@ -4,12 +4,12 @@ import {
   Alert, Col, Spinner, Row
 } from 'react-bootstrap';
 import { Container, ImagePayment, Footer} from './OrderPayments.style'
-import Total from './Total'
-import OrderCompleteButton from './buttons/OrderCompleteButton'
+import Total from '../Total/Total'
+import OrderCompleteButton from '../../buttons/OrderCompleteButton'
 import { isEmpty } from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import webApi from '../utility/webApi';
-import { updatePaymentId } from '../actions/paymentActions';
+import webApi from '../../../utility/webApi';
+import { updatePaymentId } from '../../../actions/paymentActions';
 
 class OrderPayments extends Component {
   constructor(props) {

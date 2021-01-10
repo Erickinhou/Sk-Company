@@ -42,3 +42,11 @@ export const MobileContainer = styled.div`
         font-size: 1.2rem;
     }
 `
+
+export const LoadingContainer = styled.div`
+    display: flex;
+    background-color: #00A3E2;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+`;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ImageWithFallback from './images/ImageWithFallback';
+import ImageWithFallback from '../../images/ImageWithFallback';
 export const Container = styled.div`
     width: 100%;
     box-shadow: 0 0 8px rgba(0,0,0,0.2);

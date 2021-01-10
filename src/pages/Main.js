@@ -4,17 +4,17 @@ import webApi from '../utility/webApi.js'
 import { ensurePaymentIsPaid } from '../utility/payment'
 
 import { Alert } from 'react-bootstrap'
-import { Container, MobileContainer } from './Main.style'
+import { Container, MobileContainer, LoadingContainer } from './Main.style'
 import { BrowserView, MobileView } from 'react-device-detect'
 import ThankYou from '../components/Fragments/ThankYou/ThankYou'
 import MobileThankYou from '../components/Fragments/mobile/MobileThankYou/MobileThankYou'
-import Create from '../components/Create'
+import Create from '../components/Fragments/Create/Create'
 import Order from '../components/Fragments/Order/Order'
 import MobileCreate from '../components/Fragments/mobile/MobileCreate/MobileCreate'
-import NotFound from '../components/NotFound'
-import Header from '../components/Header'
-import CheckingPayment from '../components/CheckingPayment'
-import Loader from '../components/Loader'
+import NotFound from '../components/Fragments/NotFound/NotFound'
+import Header from '../components/Fragments/Header/Header'
+import CheckingPayment from '../components/Fragments/ChekingPayment/CheckingPayment'
+import Loader from '../components/Fragments/Loader/Loader'
 import { FormattedMessage } from 'react-intl'
 
 class Main extends Component {
@@ -52,19 +52,17 @@ class Main extends Component {
     /** Check if there are any errors */
     if (!!error) {
       return (
-        <div>
+        <>
           <Header/>
           <Container className='pt-4'>
-            <Alert variant='danger'>
               <Alert.Heading>
                 <FormattedMessage id='Main.Error' defaultMessage='Payment failed.'/>
               </Alert.Heading>
               <p>
                 <FormattedMessage id='Main.ContactUs' defaultMessage='We where unable to check if the payment was successful, reload the page to try again.'/>
               </p>
-            </Alert>
           </Container>
-        </div>
+        </>
       )
     }
     
@@ -81,14 +79,14 @@ class Main extends Component {
     /** Check if there is anything being fetched */
     if (isLoading) {
       return (
-          <Container>
+          <LoadingContainer>
             <Loader/>
-          </Container>
+          </LoadingContainer>
       )
     }
     
     /** Check if there is any order that is paid */
-    if (hasOrder) {
+    if (hasOrder && order.is_paid) {
       return (
         <>
           <BrowserView>
@@ -107,7 +105,7 @@ class Main extends Component {
     }
     
     /** Show order creation */
-    if (hasOrder && order.is_paid) {
+    if (hasOrder) {
       return (
         <>
           <BrowserView>
