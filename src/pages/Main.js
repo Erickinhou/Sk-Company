@@ -4,7 +4,7 @@ import webApi from '../utility/webApi.js'
 import { ensurePaymentIsPaid } from '../utility/payment'
 
 import { Alert } from 'react-bootstrap'
-import { Container, MobileContainer, LoadingContainer } from './Main.style'
+import { Container, MobileContainer, LoadingContainer, CheckContainer } from './Main.style'
 import { BrowserView, MobileView } from 'react-device-detect'
 import ThankYou from '../components/Fragments/ThankYou/ThankYou'
 import MobileThankYou from '../components/Fragments/mobile/MobileThankYou/MobileThankYou'
@@ -52,27 +52,27 @@ class Main extends Component {
     /** Check if there are any errors */
     if (!!error) {
       return (
-        <>
+        <CheckContainer>
           <Header/>
           <Container className='pt-4'>
-              <Alert.Heading>
+              <div>
                 <FormattedMessage id='Main.Error' defaultMessage='Payment failed.'/>
-              </Alert.Heading>
-              <p>
+              </div>
+              <div>
                 <FormattedMessage id='Main.ContactUs' defaultMessage='We where unable to check if the payment was successful, reload the page to try again.'/>
-              </p>
+              </div>
           </Container>
-        </>
+        </CheckContainer>
       )
     }
     
     /** We are validating the payment */
     if (checkingPayment) {
       return (
-          <Container>
+          <CheckContainer>
             <Header/>
             <CheckingPayment/>
-          </Container>
+          </CheckContainer>
       )
     }
     

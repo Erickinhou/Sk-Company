@@ -50,3 +50,33 @@ export const LoadingContainer = styled.div`
     align-items: center;
     height: 100vh;
 `;
+
+export const CheckContainer = styled.div`
+    display: flex;
+    align-items: center;
+    background-color: #00A3E2;
+    h1, h2{
+        font-size: 2.5rem;
+    }
+    h3{
+        font-size: 2rem;
+    }
+
+    h4{
+        font-size: 2rem;
+    }   
+
+    h5, h6{
+        font-size: 1.2rem;
+    }
+    span{
+        font-size: 1.2rem;
+    }
+    div{
+        font-size: 2rem;
+    }
+    p{
+        font-size: 1.5rem;
+    }
+    height: 100vh;
+`;
