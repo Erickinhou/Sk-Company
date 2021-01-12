@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Title, Text, Flex, LogoWrapper } from './Footer.style'
+import {Container, Title, Text, Flex, LogoWrapper, OutsideLink } from './Footer.style'
 import StoreKeeper from '../../images/StoreKeeper'
 
 export const Footer = ()=>{
@@ -23,7 +23,7 @@ export const Footer = ()=>{
         <Flex>
           <div>
             <h4>BestelVerzoek is een dienst van:</h4>
-            <div>www.storekeeper.nl</div>
+            <OutsideLink>www.storekeeper.nl</OutsideLink>
           </div>  
           <LogoWrapper>
             <StoreKeeper width = {'100%'}/>

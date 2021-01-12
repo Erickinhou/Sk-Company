@@ -33,3 +33,11 @@ export const Flex = styled.div`
 export const LogoWrapper = styled.div`
   align-self: center;
 `;
+
+export const OutsideLink = styled.a`
+  font-weight: 600;
+  color: #666;
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+`;

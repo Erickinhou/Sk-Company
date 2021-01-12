@@ -31,4 +31,5 @@ export const OutsideLink = styled.a`
   color: #666;
   font-style: italic;
   text-decoration: underline;
+  cursor: pointer;
 `;
