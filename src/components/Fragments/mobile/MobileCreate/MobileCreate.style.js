@@ -6,7 +6,3 @@ export const Initial = styled.div`
   border-radius: 0 0 30px 30px;
   padding: 10px;
 `;
-
-export const Container = styled.div`
-  background-color: transparent;
-`;

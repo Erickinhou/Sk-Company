@@ -7,6 +7,3 @@ export const Initial = styled.div`
   padding: 10px;
 `;
 
-export const Container = styled.div`
-  background-color: transparent;
-`;

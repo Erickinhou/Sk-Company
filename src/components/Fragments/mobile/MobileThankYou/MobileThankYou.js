@@ -1,26 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {motion} from 'framer-motion'
 import {Initial, Container} from './MobileThankYou.style'
 import { MobileHeader } from '../MobileHeader/MobileHeader'
 import {MobileOrderProducts} from '../MobileOrderProducts/MobileOrderProducts'
-//import OrderAddress from '../../OrderProducts'
 import OrderAddress from '../../OrderAddress/OrderAddress'
 import {YourShipping} from '../../../spans/YourShipping'
 import {MobileFooter} from '../MobileFooter/MobileFooter'
 import { connect } from 'react-redux';
 
 const MobileThankYou = (props) => {
-  const { name } = props.order.created_by
+  const { name } = props.order.created_by 
   const { number } = props.order
+  const [showItems, SetShowItems] = useState(true)
+  const hideItems = ()=>{
+    SetShowItems(!showItems);
+    console.log(showItems);
+  }
+  const borderVariance = {
+    white: {
+      backgroundColor: '#fff'
+    },
+    tranparent: {
+      backgroundColor: 'transparent',
+    }
+  }
+
+
   return (
-    <Container>
+    <motion.div animate={showItems ? 'transparent' : 'white'} variants={borderVariance}>
       <Initial >
         <MobileHeader name ={name}/>
         <OrderAddress/> 
-        <YourShipping/>
+        <YourShipping hideItems={hideItems} showItems={showItems}/>
       </Initial>
-      <MobileOrderProducts/>
+      <MobileOrderProducts showItems={showItems}/>
       <MobileFooter number = {number}/>
-    </Container>
+    </motion.div>
   )
 }
 

@@ -1,30 +1,34 @@
 import React from 'react'
-import styled from 'styled-components';
-import {AiOutlineDown} from 'react-icons/ai'
+import PropTypes from 'prop-types'
+import {Container, ArrowDown} from './YourShipping.style'
+import {motion} from 'framer-motion'
 
-const DownArrow = styled(AiOutlineDown)`
-    fill: #00A3E2;
-    stroke: #00A3E2;
-    stroke-width: 40px;
-    width: 30px;
-    height: 30px;
-    margin: 10px;
-`
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    & > h2{
-      color: #666;
+export const YourShipping = (props) => {
+  const {hideItems, showItems} = props;
+  const arrowVariants = {
+    down: {
+      rotate: 0,
+    },
+    up: {
+      rotate: 180,
     }
-`
+  }
+  const handleClick = (e)=>{
+    hideItems();
+    console.log(showItems);
+  }
 
-export const YourShipping = () => {
   return(
     <Container>
       <h2>Jouw bestelling</h2>
-      <DownArrow/>
+      <motion.div animate={showItems ? 'down' : 'up'}  variants= {arrowVariants} onClick={handleClick}>
+        <ArrowDown/>
+      </motion.div>
     </Container>
   )
 }
+
+YourShipping.propTypes = {
+  hideItems: PropTypes.func,
+  showItems: PropTypes.bool,
+};

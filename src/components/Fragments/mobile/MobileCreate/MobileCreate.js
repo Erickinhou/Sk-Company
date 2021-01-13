@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { getAddressFromOrder, getAddressForUpdate } from '../../../../utility/address';
 import webApi from '../../../../utility/webApi';
-import {Initial, Container} from './MobileCreate.style'
+import {Initial, ItemsWraper} from './MobileCreate.style'
 import { MobileHeader } from '../MobileHeader/MobileHeader'
 import {MobileOrderProducts} from '../MobileOrderProducts/MobileOrderProducts'
 import OrderEditAddress from '../../OrderEditAddress/OrderEditAddress'
 import OrderPayments from '../../OrderPayments/OrderPayments'
 import {YourShipping} from '../../../spans/YourShipping'
 import {MobileFooter} from '../MobileFooter/MobileFooter'
+import {motion} from 'framer-motion'
 import { connect } from 'react-redux';
 
 export const MobileCreate = (props) => {
@@ -15,10 +16,24 @@ export const MobileCreate = (props) => {
   const { number } = order;
 
   const [isBilling, setIsBilling] = useState(true)
+  const [showItems, SetShowItems] = useState(true)
   const [name, setName] = useState('')
 
   const ToogleIsBilling = ()=>{
     setIsBilling(!isBilling);
+  }
+  const hideItems = ()=>{
+    SetShowItems(!showItems);
+    console.log(showItems);
+  }
+
+  const borderVariance = {
+    white: {
+      backgroundColor: '#fff'
+    },
+    tranparent: {
+      backgroundColor: 'transparent',
+    }
   }
 
 
@@ -32,16 +47,16 @@ export const MobileCreate = (props) => {
   }, [])
 
   return (
-    <Container>
+    <motion.div animate={showItems ? 'transparent' : 'white'} variants={borderVariance}>
       <Initial >
         <MobileHeader name ={name}/>
         <OrderEditAddress isMobile ={true} ToogleIsBilling={ToogleIsBilling} isBilling={isBilling}/>
         <OrderPayments/>
-        <YourShipping/>
+        <YourShipping hideItems={hideItems} showItems={showItems}/>
       </Initial>
-      <MobileOrderProducts/>
+      <MobileOrderProducts showItems={showItems}/>
       <MobileFooter number = {number}/>
-    </Container>
+    </motion.div>
   )
 }
 
