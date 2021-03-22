@@ -1,39 +1,49 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { Container, Total } from './OrderProducts.style'
-import { ItemOrder } from './ItemOrder/ItemOrder'
-import { getAddressFromOrder } from '../../../utility/address';
+import React from "react";
+import Loader from "../Loader/Loader";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Container, Total } from "./OrderProducts.style";
+import { ItemOrder } from "./ItemOrder/ItemOrder";
+import { getAddressFromOrder } from "../../../utility/address";
 
-const OrderProducts  = (props) => {
-  const {order_items: items, order_taxes: taxes, value_wt, value} = props.order
-  const { city } = getAddressFromOrder(props.order, true); //isBilling to true
+const OrderProducts = ({ order, isLoading, isMobile }) => {
+  const { order_items: items, order_taxes: taxes, value_wt, value } = order;
+  const { city } = getAddressFromOrder(order, true); //isBilling to true
   //percent
-  const {isMobile} = props
-  const getPercent = ()=> ((value/value_wt*100*-1)+100).toFixed(2);
+  console.log("is props", isLoading);
+  const getPercent = () => ((value / value_wt) * 100 * -1 + 100).toFixed(2);
+  if (isLoading) return <Loader />;
   return (
-    <Container isMobile = {isMobile}>
-      {items.map((item, index)=>(<ItemOrder key = {index}  isMobile={isMobile} item ={item} shipment={false}/>))}
-      {taxes.map((tax, index)=>(<ItemOrder key={index} isMobile={isMobile}  item={{...tax, city}} shipment={true}/>))}
+    <Container isMobile={isMobile}>
+      <div className="scroll-x">
+        {items.map((item, index) => (
+          <ItemOrder
+            key={index}
+            isMobile={isMobile}
+            item={item}
+            shipment={false}
+          />
+        ))}
+        {taxes.map((tax, index) => (
+          <ItemOrder
+            key={index}
+            isMobile={isMobile}
+            item={{ ...tax, city }}
+            shipment={true}
+          />
+        ))}
+      </div>
       <Total bold>
-        <div>
-          Totaal(Incl.BTW)
-        </div>
-        <div>
-          €{value_wt}
-        </div>
+        <div>Totaal(Incl.BTW)</div>
+        <div>€{value_wt}</div>
       </Total>
       <Total>
-        <div>
-          BTW({getPercent()}%)
-        </div>
-        <div>
-          €{value}
-        </div>
+        <div>BTW({getPercent()}%)</div>
+        <div>€{value}</div>
       </Total>
     </Container>
-  )
-}
+  );
+};
 
 OrderProducts.propTypes = {
   isMobile: PropTypes.bool
@@ -41,7 +51,7 @@ OrderProducts.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    order: state.getOrder.data,
-  }
-}
-export default connect(mapStateToProps)(OrderProducts)
+    order: state.getOrder.data
+  };
+};
+export default connect(mapStateToProps)(OrderProducts);

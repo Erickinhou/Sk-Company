@@ -1,32 +1,32 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Container, Main } from './Order.style'
-import PropTypes from 'prop-types'
-import Header from './OrderHeader/OrderHeader'
-import OrderProducts from '../OrderProducts/OrderProducts'
-import OrderAddress from '../OrderAddress/OrderAddress'
-import { Footer } from '../Footer/Footer'
+import React from "react";
+import { connect } from "react-redux";
+import { Container, Main } from "./Order.style";
+import PropTypes from "prop-types";
+import Header from "./OrderHeader/OrderHeader";
+import OrderProducts from "../OrderProducts/OrderProducts";
+import OrderAddress from "../OrderAddress/OrderAddress";
+import { Footer } from "../Footer/Footer";
 
-const Order = (props)=>{
+const Order = (props) => {
   return (
     <Container>
-      <Main rounded = {props.rounded}>
-        <Header/>
-          {props.address && <OrderAddress/>}
-        <OrderProducts/>
+      <Main rounded={props.rounded}>
+        <Header />
+        {props.address && <OrderAddress />}
+        <OrderProducts isLoading={props.isLoading} />
       </Main>
-      {props.rounded && <Footer/>}
+      {props.rounded && <Footer />}
     </Container>
-  )
-}
+  );
+};
 Order.propTypes = {
   address: PropTypes.bool,
-  rounded: PropTypes.bool,
+  rounded: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
-    order: state.getOrder.data,
-  }
-}
-export default connect(mapStateToProps)(Order)
+    order: state.getOrder.data
+  };
+};
+export default connect(mapStateToProps)(Order);
