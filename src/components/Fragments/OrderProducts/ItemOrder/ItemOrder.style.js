@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -6,20 +6,20 @@ export const Container = styled.div`
   padding: 10px;
   margin: 10px;
   justify-content: center;
-  border-bottom: 1px solid ${props => props.isMobile ? ' #fff' :'#666'};
+  border-bottom: 1px solid ${(props) => (props.isMobile ? " #fff" : "#666")};
 `;
 
 export const Middle = styled.div`
   flex-grow: 1;
-  & > div{
+  & > div {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: ${({ alignment }) => alignment};
+    justify-content: ${({ alignment }) => alignment};
   }
 `;
 export const End = styled.div`
   margin-left: auto;
-  width: 33%;
+  width: 10%;
   text-align: right;
 `;
 
@@ -27,7 +27,7 @@ export const Start = styled.div`
   display: flex;
   justify-content: left;
   align-items: center;
-  width: 33%;
+  width: 10%;
   & > div {
     margin: 0 5px;
   }

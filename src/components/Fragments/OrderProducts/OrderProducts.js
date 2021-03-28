@@ -10,7 +10,6 @@ const OrderProducts = ({ order, isLoading, isMobile }) => {
   const { order_items: items, order_taxes: taxes, value_wt, value } = order;
   const { city } = getAddressFromOrder(order, true); //isBilling to true
   //percent
-  console.log("is props", isLoading);
   const getPercent = () => ((value / value_wt) * 100 * -1 + 100).toFixed(2);
   if (isLoading) return <Loader />;
   return (
