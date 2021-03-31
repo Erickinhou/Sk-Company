@@ -1,47 +1,75 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Container, Title, Text, Flex, OutsideLink} from './MobileFooter.style'
-import StoreKeeper from '../../../images/StoreKeeper'
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  Container,
+  Title,
+  Text,
+  Flex,
+  OutsideLink
+} from "./MobileFooter.style";
+import StoreKeeper from "../../../images/StoreKeeper";
+import { FormattedMessage } from "react-intl";
 
-export const MobileFooter = (props)=> {
-  const {number} = props;
+const MobileFooter = (props) => {
+  const { number, order } = props;
   return (
     <Container>
       <Title>
         <Flex>
-          <div>
-            Bestelnummer:
-          </div>
-          <div>
-            {number}
-          </div>
+          <div>Bestelnummer:</div>
+          <div>{number}</div>
         </Flex>
       </Title>
       <Text>
         <div>
-          Dit BestelVerzoek is gestuurd door SK Fashion.
-          Deze email is verstuurd om je bestelling af te
-          ronden op jouw eigen verzoek
+          <FormattedMessage
+            id="Footer.OrderContact"
+            defaultMessage="Dit BestelVerzoek is gestuurd door {name}. Deze email is verstuurd om je bestelling af te ronden op jouw eigen verzoek"
+            values={{ name: order?.shop_address?.shortname }}
+          />
         </div>
         <div>
-          <b>Vragen over je bestelling?</b><br/>
-          Neem contact op met <b>SK Fashion</b><br/>
-          info@skfashion.nl / +31 (0)548-514843 
+          <b>
+            <FormattedMessage
+              id="Footer.QuestionsTitle"
+              defaultMessage="Vragen over je bestelling?"
+            />
+          </b>
+          <br />
+          <FormattedMessage
+            id="Footer.ContactData"
+            defaultMessage="Neem contact op met "
+          />
+          <b>{order?.shop_address?.shortname}</b>
+          <br />
+          {order?.shop_address?.contact_set?.email} /{" "}
+          {order?.shop_address?.contact_set?.phone}
         </div>
       </Text>
       <Title>
         <div>
-          BestelVerzoek is een dienst van:
-        <StoreKeeper/>
+          <FormattedMessage
+            id="Footer.poweredBy"
+            defaultMessage="BestelVerzoek is een dienst van:  "
+          />
+
+          <StoreKeeper />
         </div>
-        <OutsideLink>
-         www.storekeeper.nl
-        </OutsideLink>
+        <OutsideLink>www.storekeeper.nl</OutsideLink>
       </Title>
     </Container>
-  )
-}
+  );
+};
 
 MobileFooter.propTypes = {
-  OrderNumber: PropTypes.number,
+  OrderNumber: PropTypes.number
 };
+
+const mapStateToProps = (state) => {
+  return {
+    order: state.getOrder.data
+  };
+};
+
+export default connect(mapStateToProps)(MobileFooter);

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Row } from 'react-bootstrap';
-import { Container, DownArrow, Main } from './ThankYou.style'
-import { FormattedMessage } from 'react-intl';
-import appConfig from '../../../utility/appConfig';
-import { Footer } from '../Footer/Footer';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Row } from "react-bootstrap";
+import { Container, DownArrow, Main } from "./ThankYou.style";
+import { FormattedMessage } from "react-intl";
+import appConfig from "../../../utility/appConfig";
+import Footer from "../Footer/Footer";
 
 class ThankYou extends Component {
   render() {
@@ -15,11 +15,9 @@ class ThankYou extends Component {
         <Main>
           <div>
             <h1> {`Hey ${name}`}, </h1>
-            <h2>
-              Bedankt voor je bestelling
-            </h2>
+            <h2>Bedankt voor je bestelling</h2>
             <Row className="justify-content-center">
-              <DownArrow/>
+              <DownArrow />
             </Row>
           </div>
 
@@ -38,15 +36,15 @@ class ThankYou extends Component {
               />
             </p>
             <p>
-
               <FormattedMessage
                 id="ThankYou.ProcessingOrder"
                 defaultMessage="Your order will now be processed by {storename}."
-                values={{ storename: appConfig.get('initialData.company_name') }}
+                values={{
+                  storename: appConfig.get("initialData.company_name")
+                }}
               />
             </p>
             <p>
-
               <FormattedMessage
                 id="ThankYou.Email"
                 defaultMessage="When the order is shipped out, you'll receive an email."
@@ -62,14 +60,14 @@ class ThankYou extends Component {
             </p>
           </div>
         </Main>
-        <Footer/>
+        <Footer />
       </Container>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  order: state.getOrder.data,
+  order: state.getOrder.data
 });
 
 export default connect(mapStateToProps)(ThankYou);

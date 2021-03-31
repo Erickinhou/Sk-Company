@@ -11,6 +11,7 @@ import webApi from "../../../utility/webApi";
 import Loader from "../Loader/Loader";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 const Create = (props) => {
   const [isBilling, setIsBilling] = useState(true);
@@ -36,8 +37,21 @@ const Create = (props) => {
   }, []);
   return (
     <Container isMobile={isMobile}>
-      {name ? <h1> {`Hey ${name}`}, </h1> : <Loader />}
-      <h2>Rond snel je BestelVerzoek af!</h2>
+      {name ? (
+        <h1>
+          {" "}
+          <FormattedMessage id="Create.hey" defaultMessage="Hallo" />
+          {` ${name}`},{" "}
+        </h1>
+      ) : (
+        <Loader />
+      )}
+      <h2>
+        <FormattedMessage
+          id="Create.CompleteOrder"
+          defaultMessage="Quickly complete your Order Request!"
+        />
+      </h2>
       <Row className="justify-content-center">
         <DownArrow />
       </Row>

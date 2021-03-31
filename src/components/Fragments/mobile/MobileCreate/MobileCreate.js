@@ -13,7 +13,7 @@ import OrderEditAddress from "../../OrderEditAddress/OrderEditAddress";
 import OrderPayments from "../../OrderPayments/OrderPayments";
 import { YourShipping } from "../../../spans/YourShipping/YourShipping";
 import { YourCredentials } from "../../../spans/YourCredentials/YourCredentials";
-import { MobileFooter } from "../MobileFooter/MobileFooter";
+import MobileFooter from "../MobileFooter/MobileFooter";
 
 export const MobileCreate = (props) => {
   const { order, dispatch } = props;

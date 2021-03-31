@@ -5,7 +5,7 @@ import { MobileHeader } from "../MobileHeader/MobileHeader";
 import { MobileOrderProducts } from "../MobileOrderProducts/MobileOrderProducts";
 import OrderAddress from "../../OrderAddress/OrderAddress";
 import { YourShipping } from "../../../spans/YourShipping/YourShipping";
-import { MobileFooter } from "../MobileFooter/MobileFooter";
+import MobileFooter from "../MobileFooter/MobileFooter";
 import { connect } from "react-redux";
 
 const MobileThankYou = (props) => {

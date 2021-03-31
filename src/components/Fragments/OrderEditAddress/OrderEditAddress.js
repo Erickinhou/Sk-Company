@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { debounce } from "lodash";
 import { FormattedMessage } from "react-intl";
 import { Col, Row, Spinner, Alert } from "react-bootstrap";
 import {
@@ -25,6 +26,30 @@ import { getTranslatedCountries } from "../../../utility/country";
 import appConfig from "../../../utility/appConfig";
 import { getIntl } from "../../../utility/translations";
 
+const updateAddress = (dispatch, newAddress, target) =>
+  dispatch(
+    webApi.actions.updateAddress(
+      { target },
+      {
+        body: JSON.stringify(newAddress)
+      }
+    )
+  );
+const onError = (errors, e) => console.log(errors, e);
+
+const updateBillingAddress = (dispatch, newAddress) =>
+  updateAddress(dispatch, newAddress, "billing_address");
+const updateShippingAddress = (dispatch, newAddress) =>
+  updateAddress(dispatch, newAddress, "shipping_address");
+
+function useDebounce(callback, delay) {
+  const debouncedFn = useCallback(
+    debounce((...args) => callback(...args), delay),
+    [delay] // will recreate if delay changes
+  );
+  return debouncedFn;
+}
+
 const OrderAddressEditModal = (props) => {
   const intl = getIntl();
 
@@ -43,6 +68,45 @@ const OrderAddressEditModal = (props) => {
     isMobile
   } = props;
 
+  async function postData(url) {
+    const options = {
+      method: "GET"
+    };
+    const response = await fetch(url, options);
+    return response;
+  }
+
+  const fetchStreetAndCity = () => {
+    const values = getValues();
+    const postcode = values.zipcode;
+    const housenumber = values.streetnumber;
+    if (!!postcode && !!housenumber) {
+      postData(
+        `https://postcode.storekeeper.nl/?postcode=${postcode}&housenumber=${housenumber}`
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            if (result) {
+              if (result.details && result.status === "ok") {
+                setValue("street", result.details.city, {
+                  shouldValidate: true
+                });
+                setValue("city", result.details.street, {
+                  shouldValidate: true
+                });
+              } else if (result.status && result.status === "error") {
+                console.error(result);
+              }
+            }
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    }
+  };
+
   const address = getAddressFromOrder(order, isBilling);
   // Set default country_iso2
   if (!address.country_iso2) {
@@ -50,7 +114,14 @@ const OrderAddressEditModal = (props) => {
   }
 
   // Setup form
-  const { handleSubmit, register, errors, reset } = useForm({
+  const {
+    handleSubmit,
+    register,
+    errors,
+    reset,
+    getValues,
+    setValue
+  } = useForm({
     defaultValues: address
   });
 
@@ -74,22 +145,21 @@ const OrderAddressEditModal = (props) => {
   };
 
   const onSubmit = async (updatedAddress) => {
-    // Reset error
     setError(false);
     try {
       // Update address
-      setloaded(false);
-      const newAddress = getAddressForUpdate(order, updatedAddress, isBilling);
-      setAddressChanged(false);
-      console.log(setIsLoading);
-      await updateAddress(newAddress);
+      const newAddress = getAddressForUpdate(order, updatedAddress, false);
+      await updateShippingAddress(dispatch, newAddress);
+      await updateBillingAddress(dispatch, newAddress);
+
       // Resets internal form cache
       reset(updatedAddress);
-      setloaded(true);
     } catch (err) {
       setError(err.message);
     }
   };
+  const handledSubmit = handleSubmit(onSubmit, onError);
+  const debouncedSave = useDebounce(handledSubmit, 300);
 
   const renderFormGroupError = (message) => (
     <div className="invalid-feedback" style={{ display: "block" }}>
@@ -113,7 +183,12 @@ const OrderAddressEditModal = (props) => {
       {error ? showError() : ""}
 
       <ReactForm onSubmit={handleSubmit(onSubmit)}>
-        <h4>Verzendadres</h4>
+        <h4>
+          <FormattedMessage
+            id="OrderAddressRow.ShippingAddress"
+            defaultMessage="Je verzendadres"
+          />
+        </h4>
         <ReactGroup>
           <Row className="d-flex align-items-center">
             <LocationIcon />

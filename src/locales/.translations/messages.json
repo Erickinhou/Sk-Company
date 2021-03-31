@@ -5,6 +5,21 @@
     "filepath": "src/components/buttons/OrderCompleteButton.js"
   },
   {
+    "id": "OrderHeader.Title",
+    "defaultMessage": "Your order",
+    "filepath": "src/components/Fragments/Order/OrderHeader/OrderHeader.js"
+  },
+  {
+    "id": "OrderHeader.Order",
+    "defaultMessage": "Order",
+    "filepath": "src/components/Fragments/Order/OrderHeader/OrderHeader.js"
+  },
+  {
+    "id": "OrderHeader.Name",
+    "defaultMessage": "Contact",
+    "filepath": "src/components/Fragments/Order/OrderHeader/OrderHeader.js"
+  },
+  {
     "id": "Main.CheckingPayment",
     "defaultMessage": "Please wait while we are validating the payment.",
     "filepath": "src/components/CheckingPayment.js"
@@ -98,6 +113,32 @@
     "id": "OrderPayment.MissingPayments",
     "defaultMessage": "No payment methods available.",
     "filepath": "src/components/OrderPayments.js"
+  },
+  {
+    "id": "YourCredentials.Title",
+    "defaultMessage": "Your details",
+    "filepath": "src/components/spans/YourCredentials/YourCredentials.js"
+  },
+  {
+    "id": "YourShipping.Title",
+    "defaultMessage": "Your details",
+    "filepath": "src/components/spans/YourCredentials/YourShipping.js"
+  },
+  {
+    "id": "Create.CompleteOrder",
+    "defaultMessage": "Quickly complete your Order Request!",
+    "filepath": [
+      "src/components/Create.js",
+      "src/components/Fragments/mobile/MobileHeader.js"
+    ]
+  },
+  {
+    "id": "Create.hey",
+    "defaultMessage": "Hey",
+    "filepath": [
+      "src/components/Create.js",
+      "src/components/Fragments/mobile/MobileHeader.js"
+    ]
   },
   {
     "id": "OrderSummary.Title",
@@ -223,5 +264,37 @@
     "id": "Error.MissingPayment",
     "defaultMessage": "No payment method selected",
     "filepath": "src/utility/translations.js"
+  },
+  {
+    "id": "Footer.OrderContact",
+    "defaultMessage": "This OrderRequest was sent by {name}. This email has been sent to complete your order at your own request",
+    "filepath": [
+      "src/components/Fragments/mobile/MobileFooter/MobileFooter.js",
+      "src/components/Fragments/Footer/Footer.js"
+    ]
+  },
+  {
+    "id": "Footer.QuestionsTitle",
+    "defaultMessage": "Questions about your order?",
+    "filepath": [
+      "src/components/Fragments/mobile/MobileFooter/MobileFooter.js",
+      "src/components/Fragments/Footer/Footer.js"
+    ]
+  },
+  {
+    "id": "Footer.ContactData",
+    "defaultMessage": "Please contact  ",
+    "filepath": [
+      "src/components/Fragments/mobile/MobileFooter/MobileFooter.js",
+      "src/components/Fragments/Footer/Footer.js"
+    ]
+  },
+  {
+    "id": "Footer.poweredBy",
+    "defaultMessage": "Powered by:  ",
+    "filepath": [
+      "src/components/Fragments/mobile/MobileFooter/MobileFooter.js",
+      "src/components/Fragments/Footer/Footer.js"
+    ]
   }
 ]

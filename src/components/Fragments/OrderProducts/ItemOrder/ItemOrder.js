@@ -5,6 +5,9 @@ import { Container, Start, Middle, End, SvgWrapper } from "./ItemOrder.style";
 
 export const ItemOrder = (props) => {
   const { item, shipment, isMobile } = props;
+  const formatCurrency = (money) =>
+    money.toLocaleString(undefined, { style: "currency", currency: "EUR" });
+
   if (shipment) {
     return (
       <Container isMobile={isMobile}>
@@ -16,7 +19,7 @@ export const ItemOrder = (props) => {
         <Middle alignment={isMobile ? "center" : "flex-start"}>
           <div>{item.city} Nederland</div>
         </Middle>
-        <End>€{item.value}</End>
+        <End>{formatCurrency(item.value)}</End>
       </Container>
     );
   }
@@ -28,8 +31,9 @@ export const ItemOrder = (props) => {
       </Start>
       <Middle alignment={isMobile ? "center" : "flex-start"}>
         <div>{item.name}</div>
+        {item.description && <div className="description"></div>}
       </Middle>
-      <End>€{item.price}</End>
+      <End>{formatCurrency(item.price)}</End>
     </Container>
   );
 };

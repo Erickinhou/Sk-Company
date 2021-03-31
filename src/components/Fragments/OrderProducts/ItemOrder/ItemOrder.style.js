@@ -11,10 +11,14 @@ export const Container = styled.div`
 
 export const Middle = styled.div`
   flex-grow: 1;
+  margin: 0 5px;
   & > div {
     display: flex;
     align-items: ${({ alignment }) => alignment};
     justify-content: ${({ alignment }) => alignment};
+  }
+  .description {
+    font-size: 10px;
   }
 `;
 export const End = styled.div`

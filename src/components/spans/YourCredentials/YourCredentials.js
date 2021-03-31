@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
+import { FormattedMessage } from "react-intl";
 import { ArrowDown, Container } from "./YourCredentials.style";
 
 const YourCredentials = (props) => {
@@ -19,7 +20,12 @@ const YourCredentials = (props) => {
 
   return (
     <Container>
-      <h2>Jouw gegevens</h2>
+      <h2>
+        <FormattedMessage
+          id="YourCredentials.Title"
+          defaultMessage="Your details"
+        />
+      </h2>
       <motion.div
         animate={showOrderAddressPayment ? "down" : "up"}
         variants={arrowVariants}

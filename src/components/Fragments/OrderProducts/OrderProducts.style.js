@@ -33,10 +33,6 @@ export const Total = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 10px 30px;
-  margin: 10px;
+  padding: 10px 20px;
   width: 100%;
-  & > div {
-    margin: 0 10px;
-  }
 `;

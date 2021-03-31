@@ -1,83 +1,53 @@
 {
-  "instanceId":"03k6j6tmiqjcg82w",
-  "api":{
-    "baseUrl":"/apps/order-request/03k6j6tmiqjcg82w/api/",
-    "apiKey":"08n3uhov4prebe5k",
-    "routes":{
-      "session_keepalive":{
-        "url":"/session/keepalive",
-        "methods":[
-          "POST"
-        ],
-        "defaults":[
-
-        ]
+  "instanceId": "1fo4c84z33zbn803",
+  "api": {
+    "baseUrl": "https://candynow.storekeepercloud.com/apps/order-request/1fo4c84z33zbn803/api/",
+    "apiKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTcwOTE3NTIsImludCI6IjFmbzRjODR6MzN6Ym44MDMifQ.q4b-O0Vcp8AWg7UvvqLt_sdlrOaMTia4GZrTgkCXlus",
+    "routes": {
+      "get_order": {
+        "url": "/order",
+        "methods": ["GET"],
+        "defaults": []
       },
-      "get_order":{
-        "url":"/order",
-        "methods":[
-          "GET"
-        ],
-        "defaults":[
-
-        ]
+      "post_order_address": {
+        "url": "/order/{type}",
+        "methods": ["POST"],
+        "defaults": []
       },
-      "post_order_address":{
-        "url":"/order/{type}",
-        "methods":[
-          "POST"
-        ],
-        "defaults":[
-
-        ]
+      "get_order_pdf": {
+        "url": "/orderPdf",
+        "methods": ["GET"],
+        "defaults": []
       },
-      "get_order_pdf":{
-        "url":"/orderPdf",
-        "methods":[
-          "GET"
-        ],
-        "defaults":[
-
-        ]
+      "get_order_payments": {
+        "url": "/orderPayments",
+        "methods": ["GET"],
+        "defaults": []
       },
-      "get_order_payments":{
-        "url":"/orderPayments",
-        "methods":[
-          "GET"
-        ],
-        "defaults":[
-
-        ]
+      "post_order_payment": {
+        "url": "/orderPayment",
+        "methods": ["POST"],
+        "defaults": []
       },
-      "post_order_payment":{
-        "url":"/orderPayment",
-        "methods":[
-          "POST"
-        ],
-        "defaults":[
-
-        ]
-      },
-      "post_sync_payment":{
-        "url":"/syncPayment",
-        "methods":[
-          "POST"
-        ],
-        "defaults":[
-
-        ]
+      "post_sync_payment": {
+        "url": "/syncPayment",
+        "methods": ["POST"],
+        "defaults": []
       }
     }
   },
-  "initialData":{
-    "company_name":"Candy Now",
-    "company_image_url":"https://api-candynow.storekeeper.cloud/download/public/candynow/FileModule/candynow/main/candynow_logo_str.png?img_w=270&img_h=161&",
-    "company_country_iso2":"NL"
+  "initialData": {
+    "company_name": "Candy Now",
+    "company_image_url": "https://api-candynow.storekeeper.cloud/download/public/candynow/FileModule/candynow/main/candynow_logo_str.png?img_w=270&img_h=161&",
+    "company_country_iso2": "NL",
+    "company_www": null,
+    "company_email": null,
+    "company_phone": null
   },
-  "backend":{
-    "resourceUrl":"https://api-candynow.storekeepercloud.com/",
-    "buildNumber":"9353-20200707",
-    "buildDate":"20200707_162413",
-    "buildDistribution":"storekeeper-stable"
+  "backend": {
+    "resourceUrl": "https://api-candynow.storekeepercloud.com/",
+    "buildNumber": "9684-20210329",
+    "buildDate": "20210329_070736",
+    "buildDistribution": "default"
   }
 }

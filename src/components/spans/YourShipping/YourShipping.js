@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, ArrowDown } from "./YourShipping.style";
 import { motion } from "framer-motion";
+import { FormattedMessage } from "react-intl";
 
 export const YourShipping = (props) => {
   const { hideOrderProducts, showOrderProducts } = props;
@@ -20,7 +21,12 @@ export const YourShipping = (props) => {
 
   return (
     <Container>
-      <h2>Jouw bestelling</h2>
+      <h2>
+        <FormattedMessage
+          id="YourShipping.Title"
+          defaultMessage="Your details"
+        />
+      </h2>
       <motion.div
         animate={showOrderProducts ? "down" : "up"}
         variants={arrowVariants}

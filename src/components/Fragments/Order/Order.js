@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Header from "./OrderHeader/OrderHeader";
 import OrderProducts from "../OrderProducts/OrderProducts";
 import OrderAddress from "../OrderAddress/OrderAddress";
-import { Footer } from "../Footer/Footer";
+import Footer from "../Footer/Footer";
 
 const Order = (props) => {
   return (
